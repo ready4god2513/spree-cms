@@ -15,9 +15,9 @@ class CreatePosts < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :posts, :published_at, :name => :posts_published_at_ix
-    add_index :posts, :permalink, :name => :posts_permalink_ix
-    add_index :posts, [:is_active,:published_at], :name => :posts_is_active_published_at_ix
+    add_index :posts, :published_at, :name => 'posts_published_at_ix'
+    add_index :posts, :permalink, :name => 'posts_permalink_ix'
+    add_index :posts, [:is_active,:published_at], :name => 'posts_is_active_published_at_ix'
   end
 
   def self.down

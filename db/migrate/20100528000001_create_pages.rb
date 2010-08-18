@@ -12,9 +12,9 @@ class CreatePages < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :pages, :published_at, :name => :pages_published_at_ix
-    add_index :pages, :permalink, :name => :pages_permalink_ix
-    add_index :pages, [:is_active,:published_at], :name => :pages_is_active_published_at_ix
+    add_index :pages, :published_at, :name => 'pages_published_at_ix'
+    add_index :pages, :permalink, :name => 'pages_permalink_ix'
+    add_index :pages, [:is_active,:published_at], :name => 'pages_is_active_published_at_ix'
   end
 
   def self.down
