@@ -6,7 +6,7 @@ module CmsHelper
   
   def post_link_list(limit = Spree::Config[:cms_posts_recent])
     link = Struct.new(:name,:url)
-    Post.publish.find(:all, :limit => limit).collect { |post| link.new(post.title, post_path(post)) }
+    Post.publish.limit(limit).collect { |post| link.new(post.title, post_path(post)) }
   end
   
   def page_link(id)

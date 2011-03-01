@@ -9,7 +9,7 @@ class Page < ActiveRecord::Base
   
   make_permalink :with => :title
   
-  named_scope :publish, {:conditions => [ 'published_at < ? and is_active = ?', Time.zone.now, 1]}
+  scope :publish, where('published_at < ? and is_active = ?', Time.zone.now, 1)
 
   def to_param
     return permalink unless permalink.blank?
@@ -26,11 +26,11 @@ class Page < ActiveRecord::Base
     #self.published_at ||= Time.now unless self.is_active == 0
     if self.is_active == 0
       if !self.published_at.blank?
-          self.published_at = nil
+        self.published_at = nil
       end
     else
       if self.published_at.blank?
-          self.published_at = Time.now
+        self.published_at = Time.now
       end
     end
   end

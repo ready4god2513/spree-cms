@@ -17,8 +17,8 @@ class Post < ActiveRecord::Base
   validates_presence_of :body, :message => 'required'
   validates_uniqueness_of :permalink 
   
-  default_scope :order => 'published_at DESC'
-  named_scope :publish, {:conditions => [ 'published_at < ? and is_active = ?', Time.zone.now, 1]}
+  default_scope order('published_at DESC')
+  scope :publish, where('published_at < ? and is_active = ?', Time.zone.now, 1)
   
 
   #should be part of is_taggable
@@ -27,9 +27,9 @@ class Post < ActiveRecord::Base
     return [] if tag_or_tags.nil? || tag_or_tags.empty?
     case tag_or_tags
     when Array, IsTaggable::TagList
-      all(:include => ['tags', 'taggings'], :conditions => conditions ).select { |record| tag_or_tags.all? { |tag| record.tags.map(&:name).include?(tag) } } || []
+      includes('tags', 'taggings').where(conditions).select { |record| tag_or_tags.all? { |tag| record.tags.map(&:name).include?(tag) } } || []
     else
-      all(:include => ['tags', 'taggings'], :conditions => conditions).select { |record| record.tags.map(&:name).include?(tag_or_tags)  } || []
+      includes('tags', 'taggings').where(conditions).select { |record| record.tags.map(&:name).include?(tag_or_tags)  } || []
     end
   end
     
