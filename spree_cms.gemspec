@@ -4,7 +4,7 @@ require "spree_cms/version"
 
 Gem::Specification.new do |s|
   s.name        = "spree_cms"
-  s.version     = S::VERSION
+  s.version     = SpreeCms::VERSION
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Gunner Technology, Cody Swann"]
   s.email       = ["developers@gunnertech.com"]
