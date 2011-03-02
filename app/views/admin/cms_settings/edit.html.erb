@@ -2,7 +2,7 @@
 
 <h1><%= t('cms.settings') %></h1>
 
-<% form_tag(admin_cms_settings_path, :method => :put) do -%>
+<%= form_tag(admin_cms_settings_path, :method => :put) do -%>
 
 
   
@@ -10,6 +10,22 @@
 	<label><%= t('cms.posts_per_page') %></label>
 	<%= text_field_tag('preferences[cms_posts_per_page]', Spree::Config[:cms_posts_per_page]) %>
   </p>
+  
+  <!-- <p>
+  <label><%= t("cms.disqus.account") %></label>
+  <%= text_field_tag('preferences[cms_disqus_account]', Spree::Config[:cms_disqus_account]) %>
+  </p>
+  
+  <p>
+  <label><%= t("cms.disqus.api_key") %></label>
+  <%= text_field_tag('preferences[cms_disqus_api_key]', Spree::Config[:cms_disqus_api_key]) %>
+  </p>
+  
+  <p>
+  <label><%= t("cms.disqus.developer") %></label>
+  <%= text_field_tag('preferences[cms_disqus_developer]', Spree::Config[:cms_disqus_developer]) %>
+  </p> -->
+  
   <p>
 	<label><%= t('cms.posts_recent') %></label>
 	<%= text_field_tag('preferences[cms_posts_recent]', Spree::Config[:cms_posts_recent])%>

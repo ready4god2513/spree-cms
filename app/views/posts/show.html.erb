@@ -5,6 +5,6 @@
 
 <% if @post.commentable == 1 %>
 <div id="comments">
-  <%= disqus_thread %>
+  <%= raw disqus_thread %>
 </div>
 <% end %>

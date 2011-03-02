@@ -33,11 +33,16 @@ class Admin::PostsController < Admin::BaseController
         #if params[:search].nil? || params[:search][:deleted_at_not_null].blank?
         #  base_scope = base_scope.not_deleted
         #end
+        
+        @search = Post.searchlogic(params[:search])
 
-        @search = Post.search(params[:search])
-        @search.order ||= "ascend_by_title"
+        # @search = Post.search(params[:search])
+        # @search.order ||= "ascend_by_title"
 
-        @collection = @search.paginate( :page  => params[:page] )
+        @collection = @search.do_search.paginate(
+          :per_page => (Spree::Config[:per_page]||50),
+          :page     => params[:page]
+        )
       else
         @collection = Post.title_contains(params[:q]).all(:include => includes, :limit => 10)
         @collection.uniq!

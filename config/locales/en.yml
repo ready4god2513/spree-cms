@@ -4,6 +4,7 @@ en:
     posts: Posts
     page: Page
     pages: Pages
+    recent_posts: Recent Posts
     cms:
       date: Date
       published_date_range: Published Date Range
@@ -26,6 +27,10 @@ en:
       author: Author
       publish_post: Publish Post
       comment_status: Comment Status
+      status: Status
+      metadata: Metadata
+      meta_keywords: Meta Keywords
+      meta_description: Meta Description
       tags: Tags
       tags_hint: Enter tags separated by a comma
       settings: Blog Settings

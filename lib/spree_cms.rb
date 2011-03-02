@@ -1,21 +1,33 @@
 require 'spree_core'
+require 'disqus'
+require 'rails'
 require 'spree_cms_hooks'
+require 'is_taggable'
+require 'RedCloth'
 
 module SpreeCms
   class Engine < Rails::Engine
-
     config.autoload_paths += %W(#{config.root}/lib)
     
     initializer "cms" do
       require 'extensions/string'
     end
     
+    initializer 'load_disqus_config' do
+      if File.exists?("#{Rails.root}/config/disqus_config.yml")
+        raw_config = File.read("#{Rails.root}/config/disqus_config.yml")
+        DISQUS_CONFIG = YAML.load(raw_config)[Rails.env].symbolize_keys
+      else
+        DISQUS_CONFIG = {}
+      end
+    end
+    
 	  def self.activate
 	    
-	    Disqus::defaults[:account] = "my_disqus_account_name"
+	    ::Disqus::defaults[:account] = DISQUS_CONFIG[:account]
       # Optional, only if you're using the API
-      Disqus::defaults[:api_key] = "my_disqus_api_key"    
-      Disqus::defaults[:developer] = (RAILS.env != "production")
+      ::Disqus::defaults[:api_key] = DISQUS_CONFIG[:api_key]
+      ::Disqus::defaults[:developer] = DISQUS_CONFIG[:developer]
       
 	    Spree::BaseController.class_eval do
         helper CmsHelper      
@@ -51,12 +63,15 @@ module SpreeCms
         preference :cms_page_status_default, :integer, :default => 0
         preference :cms_page_comment_default, :integer, :default => 0
         preference :cms_rss_description, :string, :default => 'description about your main post rss.'
+        preference :cms_disqus_account
+        preference :cms_disqus_api_key
+        preference :cms_disqus_developer
       end  
 
       User.class_eval do
-          has_many :posts
+        has_many :posts
 
-          attr_accessible :display_name        
+        attr_accessible :display_name
       end
 
 	  end

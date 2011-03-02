@@ -34,10 +34,15 @@ class Admin::PagesController < Admin::BaseController
         #  base_scope = base_scope.not_deleted
         #end
 
-        @search = Page.search(params[:search])
-        @search.order ||= "ascend_by_title"
+        @search = Page.searchlogic(params[:search])
 
-        @collection = @search.paginate(:page => params[:page])
+        # @search = Post.search(params[:search])
+        # @search.order ||= "ascend_by_title"
+
+        @collection = @search.do_search.paginate(
+          :per_page => (Spree::Config[:per_page]||50),
+          :page     => params[:page]
+        )
       else
         @collection = Page.title_contains(params[:q]).all(:include => includes, :limit => 10)
         @collection.uniq!
