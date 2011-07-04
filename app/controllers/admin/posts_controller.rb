@@ -39,7 +39,7 @@ class Admin::PostsController < Admin::BaseController
         # @search = Post.search(params[:search])
         # @search.order ||= "ascend_by_title"
 
-        @collection = @search.do_search.paginate(
+        @collection = @search.paginate(
           :per_page => (Spree::Config[:per_page]||50),
           :page     => params[:page]
         )
