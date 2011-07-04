@@ -19,8 +19,8 @@
 <table class="index">
   <tr>
     <%= hook :admin_pages_index_headers do %>
-      <th><%= order @search, :by => :title, :as => t("cms.title") %></th>
-      <th><%= order @search, :by => :date, :as => t("cms.date") %></th>
+      <th><%= t("cms.title") %></th>
+      <th><%= t("cms.date") %></th>
     <% end %>
     <th>
       <%= hook :admin_pages_index_header_actions %>
