@@ -34,7 +34,7 @@ class Admin::PostsController < Admin::BaseController
         #  base_scope = base_scope.not_deleted
         #end
         
-        @search = Post.searchlogic(params[:search])
+        @search = Post.all
 
         # @search = Post.search(params[:search])
         # @search.order ||= "ascend_by_title"
